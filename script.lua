@@ -8,11 +8,12 @@ local gemLimit = 400000 -- Gem count the farm will stop at, avoids you getting t
 local mode = "unsafe" -- Modes : "safe" ; "unsafe" ; "veryunsafe"
 --End Settings
 
+local plrs = game:GetService("Players")
+local plr = plrs.LocalPlayer
+
 repeat task.wait() until game:IsLoaded() and plr.Character;plr.Character:WaitForChild("Humanoid");task.wait(1)
 
 math.randomseed(tick())
-local plrs = game:GetService("Players")
-local plr = plrs.LocalPlayer
 local repStorage = game:GetService("ReplicatedStorage")
 local ls = game:GetService("LogService")
 local ws = game:GetService("Workspace")
