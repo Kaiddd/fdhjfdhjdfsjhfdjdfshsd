@@ -132,7 +132,7 @@ if game.PlaceId ~= 1765700510 and game.PlaceId ~= 1067560271 then
     plr.OnTeleport:Connect(function(State)
         local qot = syn.queue_on_teleport or queue_on_teleport
         if State == Enum.TeleportState.Started and qot then
-            qot([[loadstring(game:HttpGet("https://raw.githubusercontent.com/Kaiddd/rhFarm/main/script.lua", true))()]])
+            qot([[loadstring(game:HttpGet("https://raw.githubusercontent.com/Kaiddd/fdhjfdhjdfsjhfdjdfshsd/main/script.lua", true))()]])
         end
     end)
     repStorage.Network.Events.Gui.TeleportGuiScepterAnimation:FireServer(true)
