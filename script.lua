@@ -264,6 +264,7 @@ if game.PlaceId == 1765700510 then
     if not dFolder then
         plr:Kick("\nRoyale High renamed the Diamond folder it seems, report bug to Kaid#0001 to get it fixed\n")
     end
+    repeat task.wait() until #dFolder:GetChildren() > 1
     repeat
         for i,v in pairs(dFolder:GetChildren()) do
             if (getRoot().CFrame.Position-v.CFrame.Position).Magnitude > 5000 then
