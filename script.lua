@@ -1,6 +1,6 @@
-if([[
+if#([[
     --"Royal High Farm V2 | Made with <3 by Kaid#0001 | にゃ＜３"
-]]):len() ~= 70 then while true do end end
+]]) ~= 0b01000110 then while true do end end
 
 --If you want update your settings, delete the settings.json file in workspace/RHFarmKaid_UwU/settings.json
 
