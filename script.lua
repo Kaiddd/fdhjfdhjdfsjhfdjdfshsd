@@ -3,8 +3,9 @@ if([[
 ]]):len() ~= 70 then while true do end end
 
 --Settings
-local addedDelay = .5 -- Extra delay for each gem teleport
-local gemLimit = 400000 -- Gem count the farm will stop at, avoids you getting trade banned the lower the number...
+local addedDelay = .5 -- Extra delay for each gem teleport | Recommend .5 or more to make sure the gems are picked up
+local gemLimit = 400000 -- Gem count the farm will stop at, avoids you getting trade banned, the lower the number the better
+local mode = "unsafe" -- Modes : "safe" ; "unsafe" ; "veryunsafe"
 --End Settings
 
 repeat task.wait() until game:IsLoaded()
@@ -16,6 +17,7 @@ local repStorage = game:GetService("ReplicatedStorage")
 local ls = game:GetService("LogService")
 local ws = game:GetService("Workspace")
 local tws = game:GetService("TweenService")
+local https = game:GetService("HttpService")
 
 local UI = game:GetObjects("rbxassetid://11103122108")[1]
 
@@ -53,15 +55,31 @@ end
 
 local function tweenTo(obj)
     local tween
-    if (getRoot().CFrame.Position-obj.CFrame.Position).Magnitude > 500 then
-        tween = tws.Create(tws,getRoot(),TweenInfo.new(6+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
-    elseif (getRoot().CFrame.Position-obj.CFrame.Position).Magnitude > 100 then
-        tween = tws.Create(tws,getRoot(),TweenInfo.new(2+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
-    else
-        tween = tws.Create(tws,getRoot(),TweenInfo.new(.25+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
+    if mode == "safe" then
+        if (getRoot().CFrame.Position-obj.CFrame.Position).Magnitude > 500 then
+            tween = tws.Create(tws,getRoot(),TweenInfo.new(6+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
+        elseif (getRoot().CFrame.Position-obj.CFrame.Position).Magnitude > 100 then
+            tween = tws.Create(tws,getRoot(),TweenInfo.new(2+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
+        else
+            tween = tws.Create(tws,getRoot(),TweenInfo.new(.25+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
+        end
+    elseif mode == "unsafe" then
+        if (getRoot().CFrame.Position-obj.CFrame.Position).Magnitude > 200 then
+            tween = tws.Create(tws,getRoot(),TweenInfo.new(1+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
+        else
+            tween = tws.Create(tws,getRoot(),TweenInfo.new(.25+math.random()),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
+        end
+    elseif mode == "veryunsafe" then
+        tween = tws.Create(tws,getRoot(),TweenInfo.new(.1),{CFrame = CFrame.new(obj.CFrame.X+math.random(),obj.CFrame.Y+math.random(),obj.CFrame.Z+math.random())})
     end
     tween.Play(tween)
     tween.Completed:Wait()
+end
+
+-- Support checks
+if not (isfolder and makefolder and writefile and readfile and isfile and hookmetamethod and newcclosure) then
+    plr:Kick("\n\nYour eploit doesn't support this script\n(x.synapse.to | script-ware.com)\n")
+    return
 end
 
 local executor = identifyexecutor or getexecutorname or nil
@@ -69,6 +87,25 @@ local executor = identifyexecutor or getexecutorname or nil
 if (not executor or (not (executor():find("Synapse X") or executor() == "ScriptWare") or (not syn and executor() ~= "ScriptWare"))) and not _G.badExploit then
     plr:Kick("\n\nThis script is only assured support for Synapse X and Semi-Support for ScriptWare, if you would like to continue despite this warning, \nadd _G.badExploit = true to the start of the script\n")
 end
+
+-- Create File System
+if not isfolder("RHFarmKaid_UwU") then
+    makefolder("RHFarmKaid_UwU")
+end
+
+if not isfile("RHFarmKaid_UwU/settings.lgbt") then
+    local tbl = {
+        ["addedDelay"] = addedDelay,
+        ["gemLimit"] = gemLimit,
+        ["mode"] = mode
+    }
+    writefile("RHFarmKaid_UwU/settings.lgbt", https:JSONEncode(tbl))
+end
+
+local setts = https:JSONDecode(readfile("RHFarmKaid_UwU/settings.lgbt"))
+addedDelay = setts.addedDelay
+gemLimit = setts.gemLimit
+mode = setts.mode
 
 local oldNamecall
 oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self,...)
@@ -228,7 +265,9 @@ parentHui(UI)
 
 if game.PlaceId == 1765700510 then
     for i,v in pairs(ws:GetDescendants()) do
-        
+        if v.Name == "FancyTeleportScript" then
+            v.Parent:Destroy()
+        end
     end
     local dFolder = ws:FindFirstChild("CollectibleDiamonds")
     if not dFolder then
