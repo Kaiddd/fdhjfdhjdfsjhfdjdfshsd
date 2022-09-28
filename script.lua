@@ -8,7 +8,7 @@ local gemLimit = 400000 -- Gem count the farm will stop at, avoids you getting t
 local mode = "unsafe" -- Modes : "safe" ; "unsafe" ; "veryunsafe"
 --End Settings
 
-repeat task.wait() until game:IsLoaded()
+repeat task.wait() until game:IsLoaded() and plr.Character;plr.Character:WaitForChild("Humanoid");task.wait(1)
 
 math.randomseed(tick())
 local plrs = game:GetService("Players")
@@ -92,16 +92,16 @@ if not isfolder("RHFarmKaid_UwU") then
     makefolder("RHFarmKaid_UwU")
 end
 
-if not isfile("RHFarmKaid_UwU/settings.lgbt") then
+if not isfile("RHFarmKaid_UwU/settings.json") then
     local tbl = {
         ["addedDelay"] = addedDelay,
         ["gemLimit"] = gemLimit,
         ["mode"] = mode
     }
-    writefile("RHFarmKaid_UwU/settings.lgbt", https:JSONEncode(tbl))
+    writefile("RHFarmKaid_UwU/settings.json", https:JSONEncode(tbl))
 end
 
-local setts = https:JSONDecode(readfile("RHFarmKaid_UwU/settings.lgbt"))
+local setts = https:JSONDecode(readfile("RHFarmKaid_UwU/settings.json"))
 addedDelay = setts.addedDelay
 gemLimit = setts.gemLimit
 mode = setts.mode
@@ -188,22 +188,12 @@ plr.CharacterAdded:Connect(function()
     end)
 end)
 
-if plr.Character and plr.Character:FindFirstChild("Humanoid") then
-    plr.Character.Humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
-        if plr.Character.Humanoid.Sit then
-            task.wait(.1)
-            plr.Character.Humanoid.Sit = false
-        end
-    end)
-else
-    plr.Character:WaitForChild("Humanoid")
-    plr.Character.Humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
-        if plr.Character.Humanoid.Sit then
-            task.wait(.1)
-            plr.Character.Humanoid.Sit = false
-        end
-    end)
-end
+plr.Character.Humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
+    if plr.Character.Humanoid.Sit then
+        task.wait(.1)
+        plr.Character.Humanoid.Sit = false
+    end
+end)
 
 plr.PlayerGui.CaptchaGui:GetPropertyChangedSignal("Enabled"):Connect(function()
     if plr.PlayerGui.CaptchaGui.Enabled then
