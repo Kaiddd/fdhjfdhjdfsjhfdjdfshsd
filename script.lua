@@ -2,6 +2,8 @@ if([[
     --"Royal High Farm V2 | Made with <3 by Kaid#0001 | にゃ＜３"
 ]]):len() ~= 70 then while true do end end
 
+--If you want update your settings, delete the settings.json file in workspace/RHFarmKaid_UwU/settings.json
+
 --Settings
 local addedDelay = .5 -- Extra delay for each gem teleport | Recommend .5 or more to make sure the gems are picked up
 local gemLimit = 400000 -- Gem count the farm will stop at, avoids you getting trade banned, the lower the number the better
