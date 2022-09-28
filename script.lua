@@ -21,7 +21,6 @@ local https = game:GetService("HttpService")
 
 local UI = game:GetObjects("rbxassetid://11103122108")[1]
 
-UI.Main.FarmLimit.Text = gemLimit
 UI.Main.TotalCash.Text = string.gsub(plr.PlayerGui.HUD.Center.DiamondAmount.Text, ",", "")
 
 for i,v in pairs(UI:GetDescendants()) do
@@ -106,6 +105,8 @@ local setts = https:JSONDecode(readfile("RHFarmKaid_UwU/settings.lgbt"))
 addedDelay = setts.addedDelay
 gemLimit = setts.gemLimit
 mode = setts.mode
+
+UI.Main.FarmLimit.Text = gemLimit
 
 local oldNamecall
 oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self,...)
