@@ -91,6 +91,12 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self,...)
 end))
 
 if game.PlaceId ~= 1765700510 and game.PlaceId ~= 1067560271 then
+    plr.OnTeleport:Connect(function(State)
+        local qot = syn.queue_on_teleport or queue_on_teleport
+        if State == Enum.TeleportState.Started and qot then
+            qot([[loadstring(game:HttpGet("https://raw.githubusercontent.com/Kaiddd/rhFarm/main/script.lua", true))()]])
+        end
+    end)
     repStorage.Network.Events.Gui.TeleportGuiScepterAnimation:FireServer(true)
     task.wait(3 + math.random()*2)
     repStorage.SceptorTeleport:FireServer("New Royale")
@@ -144,12 +150,22 @@ plr.CharacterAdded:Connect(function()
     end)
 end)
 
-plr.Character.Humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
-    if plr.Character.Humanoid.Sit then
-        task.wait(.1)
-        plr.Character.Humanoid.Sit = false
-    end
-end)
+if plr.Character and plr.Character:FindFirstChild("Humanoid") then
+    plr.Character.Humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
+        if plr.Character.Humanoid.Sit then
+            task.wait(.1)
+            plr.Character.Humanoid.Sit = false
+        end
+    end)
+else
+    plr.Character:WaitForChild("Humanoid")
+    plr.Character.Humanoid:GetPropertyChangedSignal("Sit"):Connect(function()
+        if plr.Character.Humanoid.Sit then
+            task.wait(.1)
+            plr.Character.Humanoid.Sit = false
+        end
+    end)
+end
 
 plr.PlayerGui.CaptchaGui:GetPropertyChangedSignal("Enabled"):Connect(function()
     if plr.PlayerGui.CaptchaGui.Enabled then
@@ -211,6 +227,9 @@ end
 parentHui(UI)
 
 if game.PlaceId == 1765700510 then
+    for i,v in pairs(ws:GetDescendants()) do
+        
+    end
     local dFolder = ws:FindFirstChild("CollectibleDiamonds")
     if not dFolder then
         plr:Kick("\nRoyale High renamed the Diamond folder it seems, report bug to Kaid#0001 to get it fixed\n")
