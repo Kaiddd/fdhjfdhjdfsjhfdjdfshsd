@@ -4,7 +4,6 @@ if([[
 
 --Settings
 local addedDelay = .5 -- Extra delay for each gem teleport
-local serverHop = false
 local gemLimit = 400000 -- Gem count the farm will stop at, avoids you getting trade banned the lower the number...
 --End Settings
 
