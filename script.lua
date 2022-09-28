@@ -260,11 +260,6 @@ end
 parentHui(UI)
 
 if game.PlaceId == 1765700510 then
-    for i,v in pairs(ws:GetDescendants()) do
-        if v.Name == "FancyTeleportScript" then
-            v.Parent:Destroy()
-        end
-    end
     local dFolder = ws:FindFirstChild("CollectibleDiamonds")
     if not dFolder then
         plr:Kick("\nRoyale High renamed the Diamond folder it seems, report bug to Kaid#0001 to get it fixed\n")
