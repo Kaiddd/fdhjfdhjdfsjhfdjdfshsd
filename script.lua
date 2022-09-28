@@ -7,7 +7,7 @@ if([[
 --Settings
 local addedDelay = .5 -- Extra delay for each gem teleport | Recommend .5 or more to make sure the gems are picked up
 local gemLimit = 400000 -- Gem count the farm will stop at, avoids you getting trade banned, the lower the number the better
-local mode = "unsafe" -- Modes : "safe" ; "unsafe" ; "veryunsafe"
+local mode = "veryunsafe" -- Modes : "safe" ; "unsafe" ; "veryunsafe"
 --End Settings
 
 repeat task.wait() until game:IsLoaded()
@@ -178,7 +178,7 @@ if plr.PlayerGui:FindFirstChild("StartingGUI") and not plr.Backpack:FindFirstChi
     firesignal(plr.PlayerGui.StartingGUI.one.love.MouseButton1Down)
     task.wait()
     firesignal(plr.PlayerGui.StartingGUI.one.love.MouseButton1Click)
-    task.wait(.5)
+    task.wait(.75)
     firesignal(plr.PlayerGui.StartingGUI.two.Done.MouseButton1Down)
     task.wait()
     firesignal(plr.PlayerGui.StartingGUI.two.Done.MouseButton1Click)
