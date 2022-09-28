@@ -178,7 +178,7 @@ if plr.PlayerGui:FindFirstChild("StartingGUI") and not plr.Backpack:FindFirstChi
     firesignal(plr.PlayerGui.StartingGUI.one.love.MouseButton1Down)
     task.wait()
     firesignal(plr.PlayerGui.StartingGUI.one.love.MouseButton1Click)
-    task.wait(.75)
+    task.wait(1.25)
     firesignal(plr.PlayerGui.StartingGUI.two.Done.MouseButton1Down)
     task.wait()
     firesignal(plr.PlayerGui.StartingGUI.two.Done.MouseButton1Click)
