@@ -20,6 +20,7 @@ local ls = game:GetService("LogService")
 local ws = game:GetService("Workspace")
 local tws = game:GetService("TweenService")
 local https = game:GetService("HttpService")
+local tpservice = game:GetService("TeleportService")
 
 repeat task.wait() until plr.Character and plr.Character:WaitForChild("Humanoid")
 task.wait(1)
@@ -243,18 +244,22 @@ local function sHop()
             qot([[loadstring(game:HttpGet("https://raw.githubusercontent.com/Kaiddd/rhFarm/main/script.lua", true))()]])
         end
     end)
-    if game.PlaceId == 1067560271 then
-        repStorage.Network.Events.Gui.TeleportGuiScepterAnimation:FireServer(true)
-        task.wait(3 + math.random()*2)
-        repStorage.SceptorTeleport:FireServer("New Royale")
-        return
+    local num = 0
+    while num < 3 do
+        if game.PlaceId == 1067560271 then
+            repStorage.Network.Events.Gui.TeleportGuiScepterAnimation:FireServer(true)
+            task.wait(3 + math.random()*2)
+            repStorage.SceptorTeleport:FireServer("New Royale")
+        end
+        if game.PlaceId == 1765700510 then
+            repStorage.Network.Events.Gui.TeleportGuiScepterAnimation:FireServer(true)
+            task.wait(3 + math.random()*2)
+            repStorage.SceptorTeleport:FireServer("Enchantix")
+        end
+        task.wait(16)
+        num += 1
     end
-    if game.PlaceId == 1765700510 then
-        repStorage.Network.Events.Gui.TeleportGuiScepterAnimation:FireServer(true)
-        task.wait(3 + math.random()*2)
-        repStorage.SceptorTeleport:FireServer("Enchantix")
-        return
-    end
+    tpservice:TeleportToPlaceInstance(game.PlaceId, game.JobId, plr)
 end
 
 parentHui(UI)
